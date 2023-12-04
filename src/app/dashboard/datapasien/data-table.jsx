@@ -72,7 +72,7 @@ function DataPasien() {
             placeholder="Type here..."
             value={table.getColumn("name")?.getFilterValue() ?? ""}
             onChange={(event) =>
-              table.getColumn("nama")?.setFilterValue(event.target.value)
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
           />
         </div>
