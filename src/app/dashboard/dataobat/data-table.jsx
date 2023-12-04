@@ -1,5 +1,4 @@
 "use client";
-
 import {
   flexRender,
   getCoreRowModel,
@@ -31,14 +30,23 @@ import Search from "@/assets/icon/Search";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import ChevronRightDouble from "@/assets/icon/ChevronRightDouble";
 import ChevronLeftDouble from "@/assets/icon/ChevronLeftDouble";
+import { useQuery } from "@tanstack/react-query";
+import { clientApi } from "@/libs/actions";
+import { columnsObat } from "./columns";
+import DialogFormObat from "./FormAdd";
 
-function DataTable({ columns, data }) {
+export const DataObat = () => {
   const [sorting, setSorting] = useState([]);
   const [columnFilters, setColumnFilters] = useState([]);
 
+  const { data } = useQuery({
+    queryKey: ["obat"],
+    queryFn: clientApi.getObat,
+  });
+
   const table = useReactTable({
     data,
-    columns,
+    columns: columnsObat,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
@@ -62,16 +70,14 @@ function DataTable({ columns, data }) {
             type="text"
             className="pl-9 text-sm focus:shadow-primary-outline ease w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow"
             placeholder="Type here..."
-            value={table.getColumn("nama")?.getFilterValue() ?? ""}
+            value={table.getColumn("name")?.getFilterValue() ?? ""}
             onChange={(event) =>
-              table.getColumn("nama")?.setFilterValue(event.target.value)
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
           />
         </div>
         <div className="col-span-2 justify-self-end items-center">
-          <button className="bg-gradient-to-r from-violet-600 to-blue-500 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity">
-            Create
-          </button>
+          <DialogFormObat />
         </div>
       </div>
 
@@ -115,7 +121,7 @@ function DataTable({ columns, data }) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columnsObat.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -214,6 +220,4 @@ function DataTable({ columns, data }) {
       </div>
     </Fragment>
   );
-}
-
-export default DataTable;
+};

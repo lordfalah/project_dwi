@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pasien {
+  id      String @id @default(cuid())
+  name    String @db.VarChar(100)
+  age     Int
+  gender  String
+  address String @db.VarChar(100)
+  gejala  String @db.VarChar(100)
+
+  // Relasi dengan tabel RekamMedis
+  rekamMedis RekamMedis[]
+}
+
+model Dokter {
+  id         String       @id @default(cuid())
+  name       String       @db.VarChar(100)
+  address    String       @db.VarChar(100)
+  email      String       @unique @db.VarChar(100)
+  createdAt  DateTime     @default(now())
+  // Relasi dengan tabel RekamMedis
+  rekamMedis RekamMedis[]
+}
+
+model Obat {
+  id         String       @id @default(cuid())
+  name       String       @db.VarChar(100)
+  jumlah     Int
+  ukuran     Int
+  harga      Float
+  keterangan String       @db.VarChar(100)
+  createdAt  DateTime     @default(now())
+  // Relasi dengan tabel RekamMedis
+  rekamMedis RekamMedis[]
+}
+
+// Definisi model untuk tabel RekamMedis
+model RekamMedis {
+  id         String   @id @default(cuid())
+  resep      String   @db.VarChar(100)
+  keluhan    String   @db.VarChar(100)
+  diagnosa   String   @db.VarChar(100)
+  keterangan String   @db.VarChar(100)
+  pasien     Pasien?  @relation(fields: [pasienId], references: [id])
+  pasienId   String?
+  dokter     Dokter?  @relation(fields: [dokterId], references: [id])
+  dokterId   String?
+  obat       Obat?    @relation(fields: [obatId], references: [id])
+  obatId     String?
+  createdAt  DateTime @default(now())
+}

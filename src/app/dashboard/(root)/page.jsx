@@ -1,34 +1,32 @@
 import prisma from "@/libs/prisma";
-import React from "react";
+import DataTable from "./data-table";
 import getQueryClient from "@/query/getQueryClient";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { DataDokter } from "./data-table";
 
-export const fetchCache = "auto";
-export const getDokter = async () => {
+export const revalidate = 0;
+export const rekamMedis = async () => {
   try {
-    const response = await prisma.dokter.findMany();
+    const response = await prisma.rekamMedis.findMany();
     return response ? response : [];
   } catch (error) {
     return error;
   }
 };
 
-export const page = async () => {
+export default async function page() {
   // Inisialisasi QueryClient
   const queryClient = getQueryClient();
 
   await queryClient.fetchQuery({
-    queryKey: ["dokter"],
-    queryFn: getDokter,
+    queryKey: ["rekamMedis"],
+    queryFn: rekamMedis,
   });
+
   return (
     <main className="">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <DataDokter />
+        <DataTable />
       </HydrationBoundary>
     </main>
   );
-};
-
-export default page;
+}

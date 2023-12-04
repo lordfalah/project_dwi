@@ -15,6 +15,10 @@ export const nav_link = {
       name: "Dashboard",
       path: "/dashboard",
       icon: <Monitor className="w-5 h-5 stroke-blue-500/90" />,
+      route_child: {
+        name: "Form",
+        path: "/dashboard/form",
+      },
     },
     {
       name: "Table Dokter",
