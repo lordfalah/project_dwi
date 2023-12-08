@@ -16,8 +16,6 @@ const FormEdit = ({ deffault, params }) => {
     keterangan: deffault?.keterangan || "",
   });
 
-  console.log(allID);
-
   const onChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };

@@ -3,13 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
-    const pasiens = await prisma.pasien.findMany({
+    const rekamMedis = await prisma.rekamMedis.findMany({
       include: {
-        rekamMedis: true,
+        dokter: true,
+        pasien: true,
       },
     });
 
-    return NextResponse.json(pasiens, { status: 200 });
+    return NextResponse.json(rekamMedis, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
   }

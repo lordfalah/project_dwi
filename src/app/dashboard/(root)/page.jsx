@@ -3,10 +3,14 @@ import DataTable from "./data-table";
 import getQueryClient from "@/query/getQueryClient";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
-export const revalidate = 0;
 export const rekamMedis = async () => {
   try {
-    const response = await prisma.rekamMedis.findMany();
+    const response = await prisma.rekamMedis.findMany({
+      include: {
+        dokter: true,
+        pasien: true,
+      },
+    });
     return response ? response : [];
   } catch (error) {
     return error;
@@ -24,6 +28,7 @@ export default async function page() {
 
   return (
     <main className="">
+      <h1>TEST</h1>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <DataTable />
       </HydrationBoundary>

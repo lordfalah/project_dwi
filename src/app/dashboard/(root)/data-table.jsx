@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-
+import ReactToPrint from "react-to-print";
 import {
   flexRender,
   getCoreRowModel,
@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import Search from "@/assets/icon/Search";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import ChevronRightDouble from "@/assets/icon/ChevronRightDouble";
@@ -35,10 +35,12 @@ import ChevronLeftDouble from "@/assets/icon/ChevronLeftDouble";
 import { columnsRekamMedis } from "./columns";
 import { useQuery } from "@tanstack/react-query";
 import { clientApi } from "@/libs/actions";
+import Print from "@/assets/icon/Print";
+import { useRouter } from "next/navigation";
 
 function DataTable() {
-  const [sorting, setSorting] = useState([]);
-
+  const myTable = useRef(null);
+  const router = useRouter();
   const { data } = useQuery({
     queryKey: ["rekamMedis"],
     queryFn: clientApi.rekamMedis,
@@ -49,25 +51,44 @@ function DataTable() {
     columns: columnsRekamMedis,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
+
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (
     <Fragment>
+      <style type="text/css" media="print">
+        {
+          "\
+  @page { size: landscape; }\
+"
+        }
+      </style>
+
       <div className="bg-white p-4 sm:p-6 flex-wrap rounded-lg items-center mt-4">
-        <div className="col-span-2 justify-self-end items-center">
+        <div className="flex justify-between">
           <Link
             href={"/dashboard/form"}
             className="bg-gradient-to-r from-violet-600 to-blue-500 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
           >
             Create
           </Link>
+
+          <ReactToPrint
+            documentTitle="Rekam Medis"
+            bodyClass="print-agreement"
+            content={() => myTable.current}
+            trigger={() => (
+              <button type="button">
+                <Print className="w-8 h-8" />
+              </button>
+            )}
+          />
         </div>
       </div>
 
-      <div className="rounded-md border bg-white my-6">
+      <div className="rounded-md border bg-white my-6" ref={myTable}>
         <Table className="w-[700px] sm:w-full">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -93,6 +114,10 @@ function DataTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="cursor-pointer"
+                  onClick={() =>
+                    router.push(`/dashboard/label/${row?.original?.id}`)
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

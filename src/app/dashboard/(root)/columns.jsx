@@ -9,12 +9,22 @@ import { clientApi } from "@/libs/actions";
 
 export const columnsRekamMedis = [
   {
-    accessorKey: "pasienId",
-    header: "ID PASIEN",
+    header: "No",
+    cell: ({ row }) => <span className="font-medium">{row?.index + 1}</span>,
+  },
+
+  {
+    accessorKey: "id",
+    header: "REKAM MEDIS",
+  },
+
+  {
+    header: "PASIEN",
+    cell: ({ row }) => <span className="">{row?.original?.pasien?.name}</span>,
   },
   {
-    accessorKey: "dokterId",
-    header: "ID DOKTER",
+    header: "DOKTER",
+    cell: ({ row }) => <span className="">{row?.original?.dokter?.name}</span>,
   },
   {
     accessorKey: "keluhan",

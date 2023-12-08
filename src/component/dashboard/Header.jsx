@@ -1,9 +1,9 @@
-import User from "@/assets/icon/User";
-import React from "react";
+"use client";
 
-import { OpenNav } from "@/utils/hooks/useOpenNav";
+import User from "@/assets/icon/User";
 import BreadCrumb from "./BreadCrumb";
 import BurgerMenu from "./BurgerMenu";
+import { signOut } from "next-auth/react";
 
 const Header = () => {
   return (
@@ -18,6 +18,9 @@ const Header = () => {
           <ul className="flex flex-row justify-end gap-x-3 list-none md-max:w-full">
             <li className="flex items-center gap-x-3.5">
               <User className="w-5 h-5 fill-white stroke-none" />
+              <button type="button" onClick={() => signOut()}>
+                Logout
+              </button>
               <span className="hidden sm:inline text-white">Sign In</span>
             </li>
             <li className="flex items-center xl:hidden">

@@ -18,6 +18,7 @@ export const nav_link = {
       route_child: {
         name: "Form",
         path: "/dashboard/form",
+        
       },
     },
     {
@@ -82,7 +83,7 @@ const SideNav = () => {
             <div className="flex items-center ">
               <Monitor className="w-8 h-8" />
               <span className="ml-1 font-semibold transition-all duration-200 ease-nav-brand">
-                Argon Dashboard 2
+                Klinik Bwin
               </span>
             </div>
           </div>
