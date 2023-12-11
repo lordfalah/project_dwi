@@ -82,9 +82,9 @@ export const columnsRekamMedis = [
 
       return (
         <div className="flex gap-x-4">
-          <Link href={`/dashboard/${row?.original?.id}`}>
-            <Edit />
-          </Link>
+          {/* <Link href={`/dashboard/${row?.original?.id}`}> */}
+          <Edit />
+          {/* </Link> */}
 
           <button
             type="button"

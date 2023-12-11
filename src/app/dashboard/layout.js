@@ -3,15 +3,8 @@ import SideNav from "@/component/dashboard/SideNav";
 import Providers from "@/query/Providers";
 import { NavigateOpen } from "@/utils/hooks/useOpenNav";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { getAuthSession } from "../api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
-
-export const revalidate = 0;
 
 const DashboardLayout = async ({ children }) => {
-  const session = await getAuthSession();
-  if (session.token.role !== "ADMIN") return redirect("/");
-
   return (
     <div className="m-0 font-sans text-base antialiased font-normal leading-default text-slate-500 relative before:fixed before:-z-50 before:inset-0 before:bg-gray-100 after:absolute after:top-0 after:w-full after:-z-10 after:bg-blue-500 after:h-72">
       <div className="block xl:flex gap-x-8">
