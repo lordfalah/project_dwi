@@ -89,6 +89,9 @@ const FormEdit = ({ deffault, params }) => {
 
     onError: (err, newTodo, context) => {
       queryClient.setQueryData(["rekamMedis"], context.previousRekamMedis);
+    },
+
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["rekamMedis"] });
     },
   });

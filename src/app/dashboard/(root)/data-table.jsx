@@ -27,8 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Fragment, useRef, useState } from "react";
-import Search from "@/assets/icon/Search";
+import { Fragment, useRef } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import ChevronRightDouble from "@/assets/icon/ChevronRightDouble";
 import ChevronLeftDouble from "@/assets/icon/ChevronLeftDouble";
@@ -61,8 +60,8 @@ function DataTable() {
       <style type="text/css" media="print">
         {
           "\
-  @page { size: landscape; }\
-"
+            @page { size: landscape; }\
+          "
         }
       </style>
 
@@ -114,10 +113,9 @@ function DataTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="cursor-pointer"
-                  onClick={() =>
-                    router.push(`/dashboard/label/${row?.original?.id}`)
-                  }
+                  // onClick={() =>
+                  //   router.push(`/dashboard/label/${row?.original?.id}`)
+                  // }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

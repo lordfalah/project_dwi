@@ -17,7 +17,7 @@ const DashboardLayout = async ({ children }) => {
 
               <Providers>
                 {children}
-                <ReactQueryDevtools initialIsOpen={false} />
+                {/* <ReactQueryDevtools initialIsOpen={false} /> */}
               </Providers>
             </div>
           </main>

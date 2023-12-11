@@ -27,11 +27,8 @@ export default async function page() {
   });
 
   return (
-    <main className="">
-      <h1>TEST</h1>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <DataTable />
-      </HydrationBoundary>
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <DataTable />
+    </HydrationBoundary>
   );
 }

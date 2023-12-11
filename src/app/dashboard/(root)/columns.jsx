@@ -6,6 +6,18 @@ import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { clientApi } from "@/libs/actions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import EllipseVertical from "@/assets/icon/EllipseVertical";
+import View from "@/assets/icon/View";
 
 export const columnsRekamMedis = [
   {
@@ -82,18 +94,55 @@ export const columnsRekamMedis = [
 
       return (
         <div className="flex gap-x-4">
-          {/* <Link href={`/dashboard/${row?.original?.id}`}> */}
-          <Edit />
-          {/* </Link> */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button type="button">
+                <EllipseVertical className="w-6 h-6" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-40 mr-20">
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link
+                    className="w-full"
+                    href={`/dashboard/${row?.original?.id}`}
+                  >
+                    Edit
+                  </Link>
+                  <DropdownMenuShortcut>
+                    <Edit className="w-4 h-4" />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
 
-          <button
-            type="button"
-            onClick={() => {
-              deleteMutate(row?.original?.id);
-            }}
-          >
-            <Trash />
-          </button>
+                <DropdownMenuItem>
+                  <button
+                    className="w-full text-left"
+                    type="button"
+                    onClick={() => {
+                      deleteMutate(row?.original?.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <DropdownMenuShortcut>
+                    <Trash className="w-4 h-4" />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    className="w-full"
+                    href={`/dashboard/label/${row?.original?.id}`}
+                  >
+                    View
+                  </Link>
+                  <DropdownMenuShortcut>
+                    <View className="w-4 h-4" />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       );
     },
