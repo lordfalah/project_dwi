@@ -3,6 +3,8 @@
 import { signIn, signOut } from "next-auth/react";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import Dashboard from "@/assets/icon/Dashboard";
 
 const LoginBtn = ({ session }) => {
   return (
@@ -69,6 +71,16 @@ const LoginBtn = ({ session }) => {
               <span className="font-medium text-lg text-white">Google</span>
             </button>
           )
+        )}
+
+        {session?.token?.role === "ADMIN" && (
+          <Link
+            href={"/dashboard"}
+            className="bg-slate-900 w-full py-2.5 flex justify-center items-center gap-x-3.5 rounded-md transition-colors hover:bg-slate-900/80"
+          >
+            <Dashboard className="w-8 h-8 stroke-white stroke-2" />
+            <span className="font-medium text-lg text-white">Dashboard</span>
+          </Link>
         )}
       </div>
     </div>

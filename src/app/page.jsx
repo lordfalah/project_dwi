@@ -1,12 +1,8 @@
 import LoginBtn from "@/component/LoginBtn";
 import { getAuthSession } from "./api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
 
 const Page = async () => {
   const session = await getAuthSession();
-  if (session && session?.token?.role === "ADMIN") {
-    return redirect("/dashboard");
-  }
 
   return (
     <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">

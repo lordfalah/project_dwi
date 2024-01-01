@@ -2,8 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import Monitor from "@/assets/icon/Monitor";
-import SignIn from "@/assets/icon/SignIn";
-import SignUp from "@/assets/icon/SignUp";
 import Table from "@/assets/icon/Table";
 import Link from "next/link";
 import React, { useContext, useEffect, useRef } from "react";
@@ -18,7 +16,6 @@ export const nav_link = {
       route_child: {
         name: "Form",
         path: "/dashboard/form",
-        
       },
     },
     {
@@ -37,22 +34,6 @@ export const nav_link = {
       icon: <Table className="w-5 h-5 stroke-orange-400/90" />,
     },
   ],
-
-  route_auth: {
-    title: "ACCOUNT PAGES",
-    route: [
-      {
-        name: "Sign In",
-        path: "/signin",
-        icon: <SignIn />,
-      },
-      {
-        name: "Sign Up",
-        path: "/signup",
-        icon: <SignUp />,
-      },
-    ],
-  },
 };
 
 const SideNav = () => {
@@ -105,28 +86,6 @@ const SideNav = () => {
                     {icon}
                   </div>
                   <span>{name}</span>
-                </Link>
-              </li>
-            ))}
-
-            <li className="w-full py-2">
-              <h6 className="pl-6 ml-2 text-xs font-bold leading-tight uppercase  opacity-60">
-                Account pages
-              </h6>
-            </li>
-
-            {nav_link.route_auth.route.map(({ name, path, icon }, idx) => (
-              <li key={`${idx}~${name}`} className="w-full">
-                <Link
-                  href={path}
-                  className="py-3.5 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
-                >
-                  <div className="mr-2 flex items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                    {icon}
-                  </div>
-                  <span className="ml-1 duration-300 opacity-100 pointer-events-none ease">
-                    {name}
-                  </span>
                 </Link>
               </li>
             ))}
