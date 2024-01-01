@@ -23,7 +23,7 @@ const DialogFormObat = () => {
     try {
       const { name, jumlah, ukuran, harga, keterangan } = form;
       if (!name || !jumlah || !ukuran || !harga || !keterangan) {
-        return null;
+        throw new Error("isi semua field");
       }
 
       const req = await fetch("/api/obat", {

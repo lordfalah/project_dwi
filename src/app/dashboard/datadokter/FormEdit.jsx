@@ -34,7 +34,7 @@ const FormEdit = ({ data }) => {
     try {
       const { name, address, email } = form;
       if (!name || !address || !email) {
-        return null;
+        throw new Error("isi semua field");
       }
 
       const req = await fetch(`/api/dokter/${data?.id}`, {

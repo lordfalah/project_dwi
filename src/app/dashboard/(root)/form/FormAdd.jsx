@@ -25,7 +25,7 @@ const FormAdd = ({ deffault }) => {
     try {
       const { resep, diagnosa, keluhan, keterangan } = form;
       if (!resep || !diagnosa || !keluhan || !keterangan) {
-        return null;
+        throw new Error("isi semua field");
       }
 
       const req = await fetch("/api/rekamMedis", {

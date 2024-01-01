@@ -38,7 +38,7 @@ const FormEdit = ({ data }) => {
     try {
       const { name, age, gender, address, gejala } = form;
       if (!name || !age || !gender || !address || !gejala) {
-        return null;
+        throw new Error("isi semua field");
       }
 
       const req = await fetch(`/api/pasien/${data?.id}`, {

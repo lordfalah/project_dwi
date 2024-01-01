@@ -130,7 +130,7 @@ function DataTable() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columnsRekamMedis.length}
                   className="h-24 text-center"
                 >
                   No results.

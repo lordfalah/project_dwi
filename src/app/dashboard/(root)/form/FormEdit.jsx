@@ -25,10 +25,8 @@ const FormEdit = ({ deffault, params }) => {
     try {
       const { resep, diagnosa, keluhan, keterangan } = form;
       if (!resep || !diagnosa || !keluhan || !keterangan) {
-        return null;
+        throw new Error("isi semua field");
       }
-
-      //   console.log(deffault);
 
       const req = await fetch(`/api/rekamMedis/${params}`, {
         method: "PATCH",

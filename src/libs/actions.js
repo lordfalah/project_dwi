@@ -87,7 +87,7 @@ const rekamMedis = async () => {
     if (!req.ok) throw new Error(req.statusText || "");
     const res = await req.json();
 
-    return res;
+    return res || [];
   } catch (error) {
     throw new Error(error.message || "");
   }

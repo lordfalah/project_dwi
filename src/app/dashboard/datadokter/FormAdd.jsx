@@ -23,7 +23,7 @@ const DialogFormDokter = () => {
     try {
       const { name, address, email } = form;
       if (!name || !address || !email) {
-        return null;
+        throw new Error("isi semua field");
       }
 
       const req = await fetch("/api/dokter", {
@@ -51,7 +51,7 @@ const DialogFormDokter = () => {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "Dokter gagal ditambahkan",
+        description: error.message || "Dokter gagal ditambahkan",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
       return error;
