@@ -55,6 +55,7 @@ const FormEdit = ({ data }) => {
       toast({
         title: "Success",
         description: "Dokter berhasil di edit",
+        variant: "success",
       });
       return res;
     } catch (error) {

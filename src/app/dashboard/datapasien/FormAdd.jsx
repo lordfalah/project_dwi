@@ -32,6 +32,7 @@ const DialogFormPasien = () => {
         method: "POST",
         body: JSON.stringify(form),
       });
+      if (!req.ok) throw new Error(req.statusText || "");
 
       const res = await req.json();
 
@@ -48,15 +49,17 @@ const DialogFormPasien = () => {
       toast({
         title: "Success",
         description: "Pasien berhasil ditambah",
+        variant: "success",
       });
       return res;
     } catch (error) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "Pasien gagal ditambahkan",
+        description: error.message || "Pasien gagal ditambahkan",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
+      return error;
     }
   };
 
@@ -107,7 +110,11 @@ const DialogFormPasien = () => {
       open={open}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" onClick={() => setOpen(true)}>
+        <Button
+          className="bg-gradient-to-r from-violet-600 to-blue-500 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
+          variant="outline"
+          onClick={() => setOpen(true)}
+        >
           Create
         </Button>
       </DialogTrigger>

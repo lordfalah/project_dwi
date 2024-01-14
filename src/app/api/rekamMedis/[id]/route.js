@@ -19,7 +19,7 @@ export async function DELETE(req, { params }) {
 
 export async function PATCH(req, { params }) {
   try {
-    const { resep, keluhan, diagnosa, keterangan, pasienId, dokterId, obatId } =
+    const { resep, keluhan, diagnosa, keterangan, pasienId, dokterId, obats } =
       await req.json();
     if (!resep || !keluhan || !diagnosa || !keterangan) {
       return NextResponse.json(
@@ -37,9 +37,25 @@ export async function PATCH(req, { params }) {
         keluhan,
         diagnosa,
         keterangan,
-        pasienId: pasienId ? pasienId : null,
-        dokterId: dokterId ? dokterId : null,
-        obatId: obatId ? obatId : null,
+        pasien: {
+          connect: {
+            id: pasienId,
+          },
+        },
+
+        dokter: {
+          connect: {
+            id: dokterId,
+          },
+        },
+
+        obat_pasien: {
+          update: {
+            data: {
+              obat: obats,
+            },
+          },
+        },
       },
     });
 

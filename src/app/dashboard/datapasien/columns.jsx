@@ -62,6 +62,7 @@ export const columnsPasien = [
 
         onSuccess: () => {
           toast({
+            variant: "success",
             title: "Success",
             description: "Data Pasien berhasil di hapus",
           });

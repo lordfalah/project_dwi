@@ -45,6 +45,7 @@ const Cetak = ({ data }) => {
             height={200}
             priority
             className="w-40 aspect-square"
+            alt="logo"
             style={{ objectFit: "cover", backgroundBlendMode: "color-burn" }}
           />
         </div>
@@ -64,7 +65,7 @@ const Cetak = ({ data }) => {
               </div>
 
               <div className="flex">
-                <p className="basis-1/2">Nama</p>
+                <p className="basis-1/2">Nama Pasien</p>
                 <span className="text-left">: {data?.pasien?.name}</span>
               </div>
 
@@ -108,6 +109,18 @@ const Cetak = ({ data }) => {
               <div className="flex">
                 <p className="basis-1/2">Keluhan</p>
                 <span>: {data?.keluhan}</span>
+              </div>
+
+              <div className="flex">
+                <p className="basis-1/2">Obat</p>
+                <div className="flex gap-x-1.5">
+                  <span className="block">:</span>
+                  <ul className="list-disc list-inside ">
+                    {data.obat_pasien.obat?.map((val) => (
+                      <li key={val.id}>{val.name}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

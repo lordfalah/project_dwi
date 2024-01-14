@@ -10,8 +10,13 @@ export const getDokter = async () => {
     const response = await prisma.dokter.findMany();
     return response ? response : [];
   } catch (error) {
-    return error;
+    throw new Error(error.message || "INTERNAL SERVER ERROR");
   }
+};
+
+export const metadata = {
+  title: "Dokter",
+  description: "Page Dokter",
 };
 
 export const page = async () => {

@@ -13,7 +13,7 @@ export const getDokter = async () => {
     const response = await prisma.dokter.findMany();
     return response ? response : [];
   } catch (error) {
-    return error;
+    throw new Error(error.message || "INTERNAL SERVER ERROR");
   }
 };
 
@@ -22,7 +22,7 @@ export const getPasien = async () => {
     const response = await prisma.pasien.findMany();
     return response ? response : [];
   } catch (error) {
-    return error;
+    throw new Error(error.message || "INTERNAL SERVER ERROR");
   }
 };
 
@@ -31,14 +31,22 @@ export const getObat = async () => {
     const response = await prisma.obat.findMany();
     return response ? response : [];
   } catch (error) {
-    return error;
+    throw new Error(error.message || "INTERNAL SERVER ERROR");
   }
 };
 
+export const metadata = {
+  title: "Form",
+  description: "Page Form",
+};
+
 export default async function page() {
-  const dokters = await getDokter();
-  const pasiens = await getPasien();
-  const obats = await getObat();
+  const [dokters, pasiens, obats] = await Promise.all([
+    getDokter(),
+    getPasien(),
+    getObat(),
+  ]);
+
   return (
     <div className="space-y-10">
       <FormCardsProvider>

@@ -6,6 +6,13 @@ export default withAuth(
   async function middleware(req) {
     const token = req.nextauth.token;
 
+    if (req.nextUrl.pathname === "/") {
+      if (token.role === "ADMIN")
+        return NextResponse.redirect(new URL("/dashboard", req.url));
+
+      return NextResponse.next();
+    }
+
     // access dashboard just role ADMIN and SUPER ADMIN
     if (req.nextUrl.pathname.startsWith("/dashboard")) {
       if (token.role === "USER")

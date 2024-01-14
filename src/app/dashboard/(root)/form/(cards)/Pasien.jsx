@@ -66,7 +66,7 @@ export function CardPasien({ pasiens, deffault }) {
               >
                 <SelectTrigger>
                   <SelectValue
-                    placeholder={pasien?.name ? pasien?.name : "Pilih dokter"}
+                    placeholder={pasien?.name ? pasien?.name : "Pilih pasien"}
                   />
                 </SelectTrigger>
                 <SelectContent>

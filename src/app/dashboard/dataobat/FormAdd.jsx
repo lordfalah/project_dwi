@@ -21,8 +21,8 @@ const DialogFormObat = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { name, jumlah, ukuran, harga, keterangan } = form;
-      if (!name || !jumlah || !ukuran || !harga || !keterangan) {
+      const { name, ukuran, harga, keterangan } = form;
+      if (!name || !ukuran || !harga || !keterangan) {
         throw new Error("isi semua field");
       }
 
@@ -47,13 +47,14 @@ const DialogFormObat = () => {
       toast({
         title: "Success",
         description: "Obat berhasil ditambah",
+        variant: "success",
       });
       return res;
     } catch (error) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "Obat gagal ditambahkan",
+        description: error.message || "Obat gagal ditambahkan",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
       return error;
@@ -107,7 +108,11 @@ const DialogFormObat = () => {
       open={open}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" onClick={() => setOpen(true)}>
+        <Button
+          className="bg-gradient-to-r from-violet-600 to-blue-500 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
+          variant="outline"
+          onClick={() => setOpen(true)}
+        >
           Create
         </Button>
       </DialogTrigger>

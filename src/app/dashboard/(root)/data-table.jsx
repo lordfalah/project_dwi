@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import ReactToPrint from "react-to-print";
+import Search from "@/assets/icon/Search";
 import {
   flexRender,
   getCoreRowModel,
@@ -27,14 +27,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Fragment, useRef } from "react";
+import { Fragment, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import ChevronRightDouble from "@/assets/icon/ChevronRightDouble";
 import ChevronLeftDouble from "@/assets/icon/ChevronLeftDouble";
 import { columnsRekamMedis } from "./columns";
 import { useQuery } from "@tanstack/react-query";
 import { clientApi } from "@/libs/actions";
-import Print from "@/assets/icon/Print";
 import { useRouter } from "next/navigation";
 
 function DataTable() {
@@ -45,45 +44,49 @@ function DataTable() {
     queryFn: clientApi.rekamMedis,
   });
 
+  const [sorting, setSorting] = useState([]);
+  const [columnFilters, setColumnFilters] = useState([]);
+
   const table = useReactTable({
     data,
     columns: columnsRekamMedis,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      sorting,
+      columnFilters,
+    },
   });
 
   return (
     <Fragment>
-      <style type="text/css" media="print">
-        {
-          "\
-            @page { size: landscape; }\
-          "
-        }
-      </style>
+      <div className="bg-white p-4 sm:p-6 grid grid-cols-6 gap-x-4 flex-wrap rounded-lg items-center mt-4">
+        <div className="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease col-span-4">
+          <span className="text-sm ease leading-5.6 absolute z-40 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+            <Search />
+          </span>
+          <input
+            type="text"
+            className="pl-9 text-sm focus:shadow-primary-outline ease w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow"
+            placeholder="Type here..."
+            value={table.getColumn("diagnosa")?.getFilterValue() ?? ""}
+            onChange={(event) =>
+              table.getColumn("diagnosa")?.setFilterValue(event.target.value)
+            }
+          />
+        </div>
 
-      <div className="bg-white p-4 sm:p-6 flex-wrap rounded-lg items-center mt-4">
-        <div className="flex justify-between">
+        <div className="col-span-2 justify-self-end items-center">
           <Link
             href={"/dashboard/form"}
             className="bg-gradient-to-r from-violet-600 to-blue-500 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
           >
             Create
           </Link>
-
-          <ReactToPrint
-            documentTitle="Rekam Medis"
-            bodyClass="print-agreement"
-            content={() => myTable.current}
-            trigger={() => (
-              <button type="button">
-                <Print className="w-8 h-8" />
-              </button>
-            )}
-          />
         </div>
       </div>
 

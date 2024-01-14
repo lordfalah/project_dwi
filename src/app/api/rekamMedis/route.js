@@ -18,7 +18,7 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const { resep, keluhan, diagnosa, keterangan, pasienId, dokterId, obatId } =
+    const { resep, keluhan, diagnosa, keterangan, pasienId, dokterId, obats } =
       await req.json();
     if (
       !resep ||
@@ -26,8 +26,7 @@ export async function POST(req) {
       !diagnosa ||
       !keterangan ||
       !pasienId ||
-      !dokterId ||
-      !obatId
+      !dokterId
     ) {
       return NextResponse.json(
         { message: "Isi semua fields !!!" },
@@ -41,14 +40,28 @@ export async function POST(req) {
         keluhan,
         diagnosa,
         keterangan,
-        pasienId,
-        dokterId,
-        obatId,
+        pasien: {
+          connect: {
+            id: pasienId,
+          },
+        },
+        dokter: {
+          connect: {
+            id: dokterId,
+          },
+        },
+
+        obat_pasien: {
+          create: {
+            obat: obats,
+          },
+        },
       },
     });
 
     return NextResponse.json(rekamMedis, { status: 201 });
   } catch (error) {
+    console.log(error.message);
     return NextResponse.json({ message: error }, { status: 500 });
   }
 }

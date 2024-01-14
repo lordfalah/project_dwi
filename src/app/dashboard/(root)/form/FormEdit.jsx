@@ -7,7 +7,7 @@ import FormDashboard from "./Form";
 import { useToast } from "@/components/ui/use-toast";
 
 const FormEdit = ({ deffault, params }) => {
-  const { data: allID } = useContext(CardsContext);
+  const { data: form_data } = useContext(CardsContext);
   const { toast } = useToast();
   const [form, setForm] = useState({
     resep: deffault?.resep || "",
@@ -22,6 +22,7 @@ const FormEdit = ({ deffault, params }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const { resep, diagnosa, keluhan, keterangan } = form;
       if (!resep || !diagnosa || !keluhan || !keterangan) {
@@ -32,25 +33,19 @@ const FormEdit = ({ deffault, params }) => {
         method: "PATCH",
         body: JSON.stringify({
           ...form,
-          ...allID,
+          ...form_data,
         }),
       });
 
       if (!req.ok) throw new Error(req.statusText || "");
 
       const res = await req.json();
-      setForm((prev) => ({
-        ...prev,
-        resep: "",
-        diagnosa: "",
-        keluhan: "",
-        keterangan: "",
-      }));
 
       toast({
         title: "Success",
         description: "Rekam Medis berhasil edit",
         action: <Link href={"/dashboard"}>Cek Data</Link>,
+        variant: "success",
       });
       return res;
     } catch (error) {

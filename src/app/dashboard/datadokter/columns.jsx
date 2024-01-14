@@ -54,6 +54,7 @@ export const columnsDokter = [
         onSuccess: () => {
           toast({
             title: "Success",
+            variant: "success",
             description: "Data Dokter berhasil di hapus",
           });
         },

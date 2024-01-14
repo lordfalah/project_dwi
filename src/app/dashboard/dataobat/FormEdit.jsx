@@ -63,6 +63,7 @@ export const FormEdit = ({ data }) => {
       toast({
         title: "Success",
         description: "Obat berhasil di edit",
+        variant: "success",
       });
       return res;
     } catch (error) {

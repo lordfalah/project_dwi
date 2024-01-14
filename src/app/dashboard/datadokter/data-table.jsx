@@ -63,7 +63,7 @@ export const DataDokter = () => {
     <Fragment>
       <div className="bg-white p-4 sm:p-6 grid grid-cols-6 gap-x-4 flex-wrap rounded-lg items-center mt-4">
         <div className="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease col-span-4">
-          <span className="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+          <span className="text-sm ease leading-5.6 absolute z-40 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
             <Search />
           </span>
           <input

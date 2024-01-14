@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Obat" ALTER COLUMN "jumlah" DROP NOT NULL,
+ALTER COLUMN "jumlah" SET DEFAULT 0;

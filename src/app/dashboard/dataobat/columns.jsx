@@ -13,12 +13,11 @@ export const columnsObat = [
     header: "NAME",
   },
   {
-    accessorKey: "jumlah",
-    header: "JUMLAH",
-  },
-  {
     accessorKey: "ukuran",
     header: "UKURAN",
+    cell: ({ row }) => (
+      <span className="font-medium">{`${row.getValue("ukuran")} mg`}</span>
+    ),
   },
   {
     accessorKey: "harga",
@@ -62,6 +61,7 @@ export const columnsObat = [
         onSuccess: () => {
           toast({
             title: "Success",
+            variant: "success",
             description: "Data obat berhasil di hapus",
           });
         },

@@ -11,13 +11,12 @@ datasource db {
 }
 
 model Pasien {
-  id      String @id @default(cuid())
-  name    String @db.VarChar(100)
-  age     Int
-  gender  String
-  address String @db.VarChar(100)
-  gejala  String @db.VarChar(100)
-
+  id         String       @id @default(cuid())
+  name       String       @db.VarChar(100)
+  age        Int
+  gender     String
+  address    String       @db.VarChar(100)
+  gejala     String       @db.VarChar(100)
   // Relasi dengan tabel RekamMedis
   rekamMedis RekamMedis[]
 }
@@ -33,31 +32,37 @@ model Dokter {
 }
 
 model Obat {
-  id         String       @id @default(cuid())
-  name       String       @db.VarChar(100)
-  jumlah     Int
-  ukuran     Int
-  harga      Float
-  keterangan String       @db.VarChar(100)
-  createdAt  DateTime     @default(now())
-  // Relasi dengan tabel RekamMedis
-  rekamMedis RekamMedis[]
+  id          String   @id @default(cuid())
+  name        String   @db.VarChar(100)
+  jumlah      Int?     @default(1)
+  ukuran      Int
+  harga       Float
+  total_harga Float
+  keterangan  String   @db.VarChar(100)
+  createdAt   DateTime @default(now())
+}
+
+model ObatPasien {
+  id         String      @id @default(cuid())
+  obat       Json?
+  RekamMedis RekamMedis?
 }
 
 // Definisi model untuk tabel RekamMedis
 model RekamMedis {
-  id         String   @id @default(cuid())
-  resep      String   @db.VarChar(100)
-  keluhan    String   @db.VarChar(100)
-  diagnosa   String   @db.VarChar(100)
-  keterangan String   @db.VarChar(100)
-  pasien     Pasien?  @relation(fields: [pasienId], references: [id])
-  pasienId   String?
-  dokter     Dokter?  @relation(fields: [dokterId], references: [id])
-  dokterId   String?
-  obat       Obat?    @relation(fields: [obatId], references: [id])
-  obatId     String?
-  createdAt  DateTime @default(now())
+  id             String      @id @default(cuid())
+  resep          String      @db.VarChar(100)
+  keluhan        String      @db.VarChar(100)
+  diagnosa       String      @db.VarChar(100)
+  keterangan     String      @db.VarChar(100)
+  pasien         Pasien?     @relation(fields: [pasienId], references: [id])
+  pasienId       String?
+  dokter         Dokter?     @relation(fields: [dokterId], references: [id])
+  dokterId       String?
+  obat_pasien    ObatPasien? @relation(fields: [obat_pasien_id], references: [id])
+  obat_pasien_id String?     @unique
+
+  createdAt DateTime @default(now())
 }
 
 model Account {

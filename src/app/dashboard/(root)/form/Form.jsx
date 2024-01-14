@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 
 const FormDashboard = ({ mutate, method, title, onChange, form }) => {
   return (
-    <form onSubmit={mutate} method={method} className="space-y-1.5">
+    <form onSubmit={mutate} method={method} className="space-y-6">
       <h2 className="font-semibold text-2xl">Note</h2>
 
       <div className="grid grid-cols-8 gap-4">
@@ -67,7 +67,12 @@ const FormDashboard = ({ mutate, method, title, onChange, form }) => {
       </div>
 
       <div className="w-full flex justify-end">
-        <Button type="submit">Simpan</Button>
+        <Button
+          className="bg-gradient-to-r from-violet-600 to-blue-500 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
+          type="submit"
+        >
+          Simpan
+        </Button>
       </div>
     </form>
   );

@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import FormDashboard from "./Form";
 
 const FormAdd = ({ deffault }) => {
-  const { data: allID } = useContext(CardsContext);
+  const { data: form_data } = useContext(CardsContext);
   const { toast } = useToast();
   const [form, setForm] = useState({
     resep: deffault?.resep || "",
@@ -22,6 +22,7 @@ const FormAdd = ({ deffault }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const { resep, diagnosa, keluhan, keterangan } = form;
       if (!resep || !diagnosa || !keluhan || !keterangan) {
@@ -30,7 +31,7 @@ const FormAdd = ({ deffault }) => {
 
       const req = await fetch("/api/rekamMedis", {
         method: "POST",
-        body: JSON.stringify({ ...form, ...allID }),
+        body: JSON.stringify({ ...form, ...form_data }),
       });
 
       if (!req.ok) throw new Error(req.statusText || "");
@@ -48,6 +49,7 @@ const FormAdd = ({ deffault }) => {
         title: "Success",
         description: "Rekam Medis berhasil ditambah",
         action: <Link href={"/dashboard"}>Cek Data</Link>,
+        variant: "success",
       });
       return res;
     } catch (error) {

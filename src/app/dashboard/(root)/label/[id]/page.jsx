@@ -1,5 +1,11 @@
 import prisma from "@/libs/prisma";
 import Cetak from "./cetak-resume";
+import { notFound } from "next/navigation";
+
+export const metadata = {
+  title: "Cetak Resume",
+  description: "Page Cetak Resume",
+};
 
 export const rekamMedis = async (id) => {
   try {
@@ -9,18 +15,21 @@ export const rekamMedis = async (id) => {
       },
       include: {
         dokter: true,
-        obat: true,
+        obat_pasien: true,
         pasien: true,
       },
     });
-    return response ? response : [];
+    return response;
   } catch (error) {
-    return error;
+    throw new Error(error.message || "INTERNAL SERVER ERROR");
   }
 };
 
 export default async function page({ params }) {
   const rm = await rekamMedis(params.id);
+  if (!rm) {
+    notFound();
+  }
 
   return <Cetak data={rm} />;
 }

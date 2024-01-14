@@ -6,6 +6,7 @@ import Table from "@/assets/icon/Table";
 import Link from "next/link";
 import React, { useContext, useEffect, useRef } from "react";
 import { OpenNav } from "@/utils/hooks/useOpenNav";
+import Image from "next/image";
 
 export const nav_link = {
   route_dash: [
@@ -62,7 +63,18 @@ const SideNav = () => {
         <div>
           <div className="h-19 p-6">
             <div className="flex items-center ">
-              <Monitor className="w-8 h-8" />
+              <Image
+                src={"/image/logo/klinik-gigi.png"}
+                width={200}
+                height={200}
+                priority
+                className="w-20 aspect-square"
+                alt="logo"
+                style={{
+                  objectFit: "cover",
+                  backgroundBlendMode: "color-burn",
+                }}
+              />
               <span className="ml-1 font-semibold transition-all duration-200 ease-nav-brand">
                 Klinik Bwin
               </span>

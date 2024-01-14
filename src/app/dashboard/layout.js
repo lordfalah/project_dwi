@@ -15,10 +15,7 @@ const DashboardLayout = async ({ children }) => {
             <div className="w-full px-6 py-6 mx-auto">
               <Header />
 
-              <Providers>
-                {children}
-                {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-              </Providers>
+              <Providers>{children}</Providers>
             </div>
           </main>
         </NavigateOpen>

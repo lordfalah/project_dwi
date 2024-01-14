@@ -3,6 +3,8 @@ import DataTable from "./data-table";
 import getQueryClient from "@/query/getQueryClient";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
+export const revalidate = 0;
+
 export const rekamMedis = async () => {
   try {
     const response = await prisma.rekamMedis.findMany({
@@ -13,8 +15,13 @@ export const rekamMedis = async () => {
     });
     return response ? response : [];
   } catch (error) {
-    return error;
+    throw new Error(error.message || "INTERNAL SERVER ERROR");
   }
+};
+
+export const metadata = {
+  title: "Dashboard",
+  description: "Page Dashboard",
 };
 
 export default async function page() {

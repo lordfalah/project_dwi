@@ -10,8 +10,9 @@ export const FormCardsProvider = ({ children }) => {
   const [data, setData] = useState({
     dokterId: "",
     pasienId: "",
-    obatId: "",
     createdAt: "",
+    obats: null,
+    total_harga: 0,
   });
 
   return (

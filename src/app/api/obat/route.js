@@ -17,8 +17,8 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const { name, jumlah, ukuran, harga, keterangan } = await req.json();
-    if (!name || !jumlah || !ukuran || !harga || !keterangan) {
+    const { name, ukuran, harga, keterangan } = await req.json();
+    if (!name || !ukuran || !harga || !keterangan) {
       return NextResponse.json(
         { message: "Isi semua fields !!!" },
         { status: 404 }
@@ -28,9 +28,9 @@ export async function POST(req) {
     const obat = await prisma.obat.create({
       data: {
         name,
-        jumlah: parseInt(jumlah),
         ukuran: parseInt(ukuran),
         harga: parseFloat(harga),
+        total_harga: parseFloat(harga),
         keterangan,
       },
     });

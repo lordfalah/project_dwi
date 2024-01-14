@@ -45,6 +45,7 @@ const DialogFormDokter = () => {
       toast({
         title: "Success",
         description: "Dokter berhasil ditambah",
+        variant: "success",
       });
       return res;
     } catch (error) {
@@ -105,7 +106,11 @@ const DialogFormDokter = () => {
       open={open}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" onClick={() => setOpen(true)}>
+        <Button
+          className="bg-gradient-to-r from-violet-600 to-blue-500 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
+          variant="outline"
+          onClick={() => setOpen(true)}
+        >
           Create
         </Button>
       </DialogTrigger>

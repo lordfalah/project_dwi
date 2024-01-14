@@ -57,21 +57,6 @@ const FormModal = ({
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="jumlah" className="text-right">
-              jumlah
-            </Label>
-            <Input
-              onChange={onChange}
-              required={true}
-              value={form.jumlah}
-              type="number"
-              id="jumlah"
-              className="col-span-3"
-              name="jumlah"
-            />
-          </div>
-
-          <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="ukuran" className="text-right">
               ukuran
             </Label>

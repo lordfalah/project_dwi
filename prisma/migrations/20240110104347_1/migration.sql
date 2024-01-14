@@ -28,6 +28,7 @@ CREATE TABLE "Obat" (
     "jumlah" INTEGER NOT NULL,
     "ukuran" INTEGER NOT NULL,
     "harga" DOUBLE PRECISION NOT NULL,
+    "total_harga" DOUBLE PRECISION NOT NULL,
     "keterangan" VARCHAR(100) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

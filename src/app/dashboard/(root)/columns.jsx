@@ -18,18 +18,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import EllipseVertical from "@/assets/icon/EllipseVertical";
 import View from "@/assets/icon/View";
+import { useRouter } from "next/navigation";
 
 export const columnsRekamMedis = [
   {
     header: "No",
     cell: ({ row }) => <span className="font-medium">{row?.index + 1}</span>,
   },
-
-  {
-    accessorKey: "id",
-    header: "REKAM MEDIS",
-  },
-
   {
     header: "PASIEN",
     cell: ({ row }) => <span className="">{row?.original?.pasien?.name}</span>,
@@ -57,6 +52,7 @@ export const columnsRekamMedis = [
     cell: ({ row }) => {
       const { toast } = useToast();
       const queryClient = useQueryClient();
+      const router = useRouter();
 
       const { mutate: deleteMutate } = useMutation({
         mutationFn: clientApi.rekamMedisDelete,
@@ -87,6 +83,7 @@ export const columnsRekamMedis = [
         onSuccess: () => {
           toast({
             title: "Success",
+            variant: "success",
             description: "Data rekamMedis berhasil di hapus",
           });
         },
@@ -104,12 +101,15 @@ export const columnsRekamMedis = [
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  <Link
-                    className="w-full"
-                    href={`/dashboard/${row?.original?.id}`}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      router.push(`/dashboard/${row?.original?.id}`);
+                      router.refresh();
+                    }}
                   >
                     Edit
-                  </Link>
+                  </button>
                   <DropdownMenuShortcut>
                     <Edit className="w-4 h-4" />
                   </DropdownMenuShortcut>

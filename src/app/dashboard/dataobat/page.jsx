@@ -9,8 +9,13 @@ export const getObat = async () => {
     const response = await prisma.obat.findMany();
     return response ? response : [];
   } catch (error) {
-    return error;
+    throw new Error(error.message || "INTERNAL SERVER ERROR");
   }
+};
+
+export const metadata = {
+  title: "Obat",
+  description: "Page Obat",
 };
 
 const page = async () => {
